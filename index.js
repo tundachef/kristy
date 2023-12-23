@@ -1,91 +1,155 @@
 const { Web3 } = require('web3');
 const axios = require('axios');
+const fs = require('fs/promises');
+const { exec } = require('child_process');
+const AfricasTalking = require('africastalking');
 
-// Connect to your BSC node
-const web3 = new Web3('http://127.0.0.1:7545');
+// Set your app credentials
+const credentials = {
+  apiKey: 'YourAPIKey',
+  username: 'YourUsername',
+};
 
-// Set the starting and ending block numbers
-const startBlock = 0; // Replace with your desired start block
-const endBlock = 'latest';
+// Initialize the SDK
+const AfricasTalkingSDK = AfricasTalking(credentials);
 
-// Minimum balance threshold in USD
-const minBalanceThresholdUSD = 10;
+// Get the SMS service
+const sms = AfricasTalkingSDK.SMS;
+
+// Constants and Configuration
+const BSC_NODE_URL = 'http://127.0.0.1:7545';
+const MIN_BALANCE_THRESHOLD_USD = 10;
+const API_KEY = 'YourApiKeyToken';
+
+// Token information (exchange rate to USD)
+const tokens = [
+  { exchangeRate: 270 }, // Replace with actual token exchange rates
+  // Add more tokens as needed
+];
+
+const web3 = new Web3(BSC_NODE_URL);
+
+let issueFileCounter = 1; // Counter for auto-incrementing issue file names
 
 async function getContractBalances(contractAddress) {
-  const balances = {
-    contract: contractAddress,
-    tokens: {},
-  };
+  try {
+    const balances = {
+      contract: contractAddress,
+      tokens: {},
+    };
 
-  // Check the overall balance of the contract
-  const overallBalanceInWei = await web3.eth.getBalance(contractAddress);
-  const overallBalanceInEth = web3.utils.fromWei(overallBalanceInWei, 'ether');
+    const overallBalanceInWei = await web3.eth.getBalance(contractAddress);
+    const overallBalanceInEth = web3.utils.fromWei(overallBalanceInWei, 'ether');
+    const overallBalanceInUSD = overallBalanceInEth * tokens[0].exchangeRate;
 
-  // Convert overall balance to USD (Assuming the first token is the main currency)
-  const overallBalanceInUSD = overallBalanceInEth * tokens[0].exchangeRate;
+    if (overallBalanceInUSD < MIN_BALANCE_THRESHOLD_USD) {
+      return null;
+    }
 
-  // Check if the overall balance is less than 10 USD
-  if (overallBalanceInUSD < minBalanceThresholdUSD) {
+    balances.overallBalance = overallBalanceInUSD;
+    return balances;
+  } catch (error) {
+    console.error(`Error getting balances for contract at ${contractAddress}:`, error);
     return null;
   }
+}
 
-  balances.overallBalance = overallBalanceInUSD;
+async function getContractSourceCode(contractAddress) {
+  try {
+    const apiUrl = `https://api.bscscan.com/api?module=contract&action=getsourcecode&address=${contractAddress}&apikey=${API_KEY}`;
+    const response = await axios.get(apiUrl);
 
-  return balances;
+    const result = response.data.result[0];
+    return result && result.SourceCode ? result.SourceCode : null;
+  } catch (error) {
+    console.error(`Error fetching source code for contract at ${contractAddress}:`, error);
+    return null;
+  }
+}
+
+async function saveAddressesToFile(blockNumber, blockBalances) {
+  const fileName = `${blockNumber}.json`;
+  try {
+    await fs.writeFile(fileName, JSON.stringify(blockBalances, null, 2));
+    console.log(`Addresses with Balances over ${MIN_BALANCE_THRESHOLD_USD} USD for Block ${blockNumber} saved to ${fileName}`);
+  } catch (error) {
+    console.error(`Error saving addresses to file for block ${blockNumber}:`, error);
+  }
+}
+
+async function analyzeAndSaveIssues(contractAddress, sourceCode) {
+  try {
+    const solFileName = `${contractAddress}.sol`;
+    await fs.writeFile(solFileName, sourceCode);
+    console.log(`Source code for contract at ${contractAddress} saved to ${solFileName}`);
+
+    const mythCommand = `myth analyze ${solFileName} -o json`;
+    exec(mythCommand, (error, stdout) => {
+      if (error) {
+        console.error(`Error running myth analyze for ${solFileName}: ${error.message}`);
+        return;
+      }
+
+      const mythResult = JSON.parse(stdout);
+      if (mythResult && mythResult.issues && mythResult.issues.length > 0) {
+        const issuesFileName = `${issueFileCounter}. ${contractAddress}.json`;
+        fs.writeFile(issuesFileName, JSON.stringify(mythResult, null, 2));
+        console.log(`Myth issues for contract at ${contractAddress} saved to ${issuesFileName}`);
+        sendSms(`Contract at ${contractAddress} has issues. Check ${issuesFileName} for details.`);
+        issueFileCounter++;
+      }
+    });
+  } catch (error) {
+    console.error(`Error analyzing and saving issues for contract at ${contractAddress}:`, error);
+  }
+}
+
+function sendSms(message) {
+  const options = {
+    to: ['+254711XXXYYY', '+254733YYYZZZ'], // Replace with your phone numbers
+    message,
+    from: 'XXYYZZ', // Replace with your shortCode or senderId
+  };
+
+  sms.send(options)
+    .then(console.log)
+    .catch(console.log);
 }
 
 async function processBlocks() {
-  // Get the latest block number
-  const latestBlockNumber = await web3.eth.getBlockNumber();
-  console.log(`Latest Block Number: ${latestBlockNumber}`);
+  try {
+    const latestBlockNumber = await web3.eth.getBlockNumber();
+    console.log(`Latest Block Number: ${latestBlockNumber}`);
 
-  const addressesArray = [];
+    let addressesArray = [];
 
-  // Iterate through blocks in the specified range
-  for (let blockNumber = startBlock; blockNumber <= latestBlockNumber; blockNumber++) {
-    try {
-      // Get block details
+    for (let blockNumber = 0; blockNumber <= latestBlockNumber; blockNumber++) {
       const block = await web3.eth.getBlock(blockNumber, true);
 
       if (block && block.transactions) {
         const blockBalances = [];
 
-        // Iterate through transactions in the block
         for (const tx of block.transactions) {
-          // Check if it's a contract creation transaction
           if (!tx.to) {
             const contractAddress = tx.creates;
             const contractBalances = await getContractBalances(contractAddress);
 
             if (contractBalances) {
               blockBalances.push(contractBalances);
-
-              // Collect addresses with balances over 10 USD
               addressesArray.push(contractAddress);
             }
           }
         }
 
-        // Save addresses with balances over 10 USD to a JSON file
         if (blockBalances.length > 0) {
-          const fileName = `${blockNumber}.json`;
-          fs.writeFileSync(fileName, JSON.stringify(blockBalances, null, 2));
-          console.log(`Addresses with Balances over ${minBalanceThresholdUSD} USD for Block ${blockNumber} saved to ${fileName}`);
+          await saveAddressesToFile(blockNumber, blockBalances);
+          await analyzeAndSaveIssues(addressesArray);
+          addressesArray = [];
         }
       }
-    } catch (error) {
-      console.error(`Error processing block ${blockNumber}:`, error);
     }
-  }
-
-  // Send addresses as an array to a link
-  try {
-    // const link = 'https://example.com/save-addresses';
-    // await axios.post(link, { addresses: addressesArray });
-    console.log(addressesArray);
-    console.log('Addresses sent to the link successfully.');
   } catch (error) {
-    console.error('Error sending addresses to the link:', error);
+    console.error('Error processing blocks:', error);
   }
 }
 
