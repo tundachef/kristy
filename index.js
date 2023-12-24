@@ -234,8 +234,12 @@ async function getContractSourceCodeTest(contractAddress) {
           sourcesString.replaceOnlyFirst(/{/g, '[').replaceOnlyLast(/}/g, ']')
         );
 
-        const files = Object.values(sourceJson);
-        const combinedSourceCode = files.map((file) => file.content).join('\n');
+        const files = Object.values(sourceJson).reverse();
+        const combinedSourceCode = files.map(file => {
+          // Remove lines starting with "import" until ";"
+          const contentWithoutImports = file.content.replace(/^import.*?;/gm, '');
+          return contentWithoutImports;
+        }).join('\n');
 
         return combinedSourceCode;
       } catch (error) {
