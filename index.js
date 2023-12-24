@@ -209,6 +209,13 @@ async function processBlocks() {
     console.error('Error processing blocks:', error);
   }
 }
+
+// Start processing blocks
+processBlocks();
+
+
+// test for v2.0.0
+
 async function getContractSourceCodeTest(contractAddress) {
   try {
     const apiUrl = `https://api.bscscan.com/api?module=contract&action=getsourcecode&address=${contractAddress}&apikey=${API_KEY}`;
@@ -235,10 +242,16 @@ async function getContractSourceCodeTest(contractAddress) {
         );
 
         const files = Object.values(sourceJson).reverse();
-        const combinedSourceCode = files.map(file => {
+        const combinedSourceCode = files.map((file, index) => {
           // Remove lines starting with "import" until ";"
           const contentWithoutImports = file.content.replace(/^import.*?;/gm, '');
-          return contentWithoutImports;
+        
+          // Keep only the first "// SPDX-License-Identifier: MIT"
+          const lines = contentWithoutImports.split('\n');
+          const firstLicenseIndex = lines.findIndex(line => line.includes('// SPDX-License-Identifier: MIT'));
+          const filteredContent = index === 0 ? contentWithoutImports : lines.slice(1).join('\n');
+        
+          return filteredContent;
         }).join('\n');
 
         return combinedSourceCode;
@@ -262,10 +275,8 @@ async function cow(contractAddress) {
 }
 
 
-// Start processing blocks
-// processBlocks();
-cow('0x2478f070fdc193d4dac6a635aa39a350e9fa2738');
-cow('0xbce3cbb884f45273120e40d3603ab8fc14c590e0');
+// cow('0x2478f070fdc193d4dac6a635aa39a350e9fa2738');
+// cow('0xbce3cbb884f45273120e40d3603ab8fc14c590e0');
 
 
 // Helpers
