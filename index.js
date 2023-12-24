@@ -1,8 +1,10 @@
 const { Web3 } = require('web3');
 const axios = require('axios');
 const fs = require('fs/promises');
+const fs_ = require('fs');
 const { exec } = require('child_process');
 const AfricasTalking = require('africastalking');
+const path = require('path');
 require('dotenv').config();
 
 
@@ -43,9 +45,16 @@ async function getContractBalances(contractAddress) {
     const overallBalanceInWei = await web3.eth.getBalance(contractAddress);
     const overallBalanceInEth = web3.utils.fromWei(overallBalanceInWei, 'ether');
     const overallBalanceInUSD = overallBalanceInEth * tokens[0].exchangeRate;
+    console.log(`Bonzo bal(USD): ${overallBalanceInUSD}`);
 
     if (overallBalanceInUSD < MIN_BALANCE_THRESHOLD_USD) {
-      return null;
+      const BusdBal = await getBUSDBalance(contractAddress);
+      if(BusdBal < MIN_BALANCE_THRESHOLD_USD) {
+        return null;
+      }
+
+      balances.overallBalance = BusdBal;
+      return balances;
     }
 
     balances.overallBalance = overallBalanceInUSD;
@@ -54,6 +63,20 @@ async function getContractBalances(contractAddress) {
     console.error(`Error getting balances for contract at ${contractAddress}:`, error);
     return null;
   }
+}
+
+async function getBUSDBalance(contractAddress) {
+  const tokenContractAddress = '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56';
+  const abiPath = './abis/busd.json';
+  // Load ABI from JSON file
+  const abiRaw = fs_.readFileSync(path.resolve(__dirname, abiPath), 'utf8');
+  const tokenABI = JSON.parse(abiRaw);
+  const tokenContract = new web3.eth.Contract(tokenABI, tokenContractAddress);
+  const balanceInWei = await tokenContract.methods.balanceOf(contractAddress).call();
+  const balanceInEther = web3.utils.fromWei(balanceInWei, 'ether');
+  const balanceInUSD = balanceInEther * 1;
+  console.log('BUSD');
+  return balanceInUSD;
 }
 
 async function getContractSourceCode(contractAddress) {
@@ -122,6 +145,7 @@ function sendSms(message) {
 async function processBlocks() {
   try {
     const latestBlockNumber = await web3.eth.getBlockNumber();
+    // const latestBlockNumber = 20000000;
     console.log(`Latest Block Number: ${latestBlockNumber}`);
 
     let addressesArray = [];
@@ -140,6 +164,9 @@ async function processBlocks() {
             const contractAddress = (await web3.eth.getTransactionReceipt(tx.hash)).contractAddress;
             console.log(`Contract Address: ${contractAddress}`);
             const contractBalances = await getContractBalances(contractAddress);
+            console.log(`Contract Balance: ${contractBalances}`);
+            const testBalances = await getContractBalances("0x6DdbA3381663431Ce6c34874A9875b995788008b");
+            console.log(`Contract Balance: ${testBalances.overallBalance}`);
 
             if (contractBalances) {
               blockBalances.push(contractBalances);
