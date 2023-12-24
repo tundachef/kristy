@@ -159,7 +159,6 @@ async function analyzeAndSaveIssues(contractAddress, sourceCode) {
 
 function sendSms(message) {
   const phone = process.env.PHONE_NUMBER;
-  console.log(phone);
   const options = {
     to: [phone], // Replace with your phone numbers
     message,
@@ -210,7 +209,77 @@ async function processBlocks() {
     console.error('Error processing blocks:', error);
   }
 }
+async function getContractSourceCodeTest(contractAddress) {
+  try {
+    const apiUrl = `https://api.bscscan.com/api?module=contract&action=getsourcecode&address=${contractAddress}&apikey=${API_KEY}`;
+    const response = await axios.get(apiUrl);
+
+    const result = response.data.result[0];
+    if (result && result.SourceCode) {
+      let sourceCode = result.SourceCode;
+
+      // Check if the SourceCode starts with '{{'
+      if (sourceCode.startsWith('{{')) {
+        // Replace '{{' with '{' and '}}' with '}'
+        sourceCode = sourceCode.replace(/{{/g, '{').replace(/}}/g, '}');
+      }
+
+      try {
+        // Parse the modified JSON structure
+        const xsourceCode = JSON.parse(sourceCode);
+
+        // Extract source code from the JSON structure
+        const sourcesString = JSON.stringify(xsourceCode.sources);
+        const sourceJson = JSON.parse(
+          sourcesString.replaceOnlyFirst(/{/g, '[').replaceOnlyLast(/}/g, ']')
+        );
+
+        const files = Object.values(sourceJson);
+        const combinedSourceCode = files.map((file) => file.content).join('\n');
+
+        return combinedSourceCode;
+      } catch (error) {
+        console.log('Error parsing modified JSON structure:', error);
+        return result.SourceCode;
+      }
+    }
+
+    return null;
+  } catch (error) {
+    console.error(`Error fetching source code for contract at ${contractAddress}:`, error);
+    return null;
+  }
+}
+
+async function cow(contractAddress) {
+  let sourceCode = await getContractSourceCodeTest(contractAddress);
+  const solFileName = `${contractAddress}.sol`;
+  await fs.writeFile(solFileName, sourceCode);
+}
+
 
 // Start processing blocks
 // processBlocks();
-sendSms("Balls Balls Balls");
+cow('0x2478f070fdc193d4dac6a635aa39a350e9fa2738');
+cow('0xbce3cbb884f45273120e40d3603ab8fc14c590e0');
+
+
+// Helpers
+String.prototype.replaceOnlyFirst = function(search, replacement) {
+  const indexOfFirst = this.indexOf(search);
+  if (indexOfFirst === -1) {
+    return this;
+  }
+  
+  return this.slice(0, indexOfFirst) + replacement + this.slice(indexOfFirst + search.length);
+};
+
+
+String.prototype.replaceOnlyLast = function(search, replacement) {
+  const indexOfLast = this.lastIndexOf(search);
+  if (indexOfLast === -1) {
+    return this;
+  }
+
+  return this.slice(0, indexOfLast) + replacement + this.slice(indexOfLast + search.length);
+};
