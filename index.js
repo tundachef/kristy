@@ -48,12 +48,22 @@ async function getContractBalances(contractAddress) {
     console.log(`Bonzo bal(USD): ${overallBalanceInUSD}`);
 
     if (overallBalanceInUSD < MIN_BALANCE_THRESHOLD_USD) {
-      const BusdBal = await getBUSDBalance(contractAddress);
-      if(BusdBal < MIN_BALANCE_THRESHOLD_USD) {
-        return null;
+      let ovBal = 0;
+      // BUSD
+      ovBal = await getTokenBalance(contractAddress, '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56', './abis/busd.json', 1);
+      if(ovBal < MIN_BALANCE_THRESHOLD_USD) {
+        // USDT
+        ovBal = await getTokenBalance(contractAddress, '0x55d398326f99059fF775485246999027B3197955', './abis/usdt.json', 1);
+        if(ovBal < MIN_BALANCE_THRESHOLD_USD) {
+          // ETH
+          ovBal = await getTokenBalance(contractAddress, '0x2170Ed0880ac9A755fd29B2688956BD959F933F8', './abis/eth.json', 1);
+          if(ovBal < MIN_BALANCE_THRESHOLD_USD) {
+            return null;
+          }
+        }
       }
 
-      balances.overallBalance = BusdBal;
+      balances.overallBalance = ovBal;
       return balances;
     }
 
@@ -65,19 +75,25 @@ async function getContractBalances(contractAddress) {
   }
 }
 
-async function getBUSDBalance(contractAddress) {
-  const tokenContractAddress = '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56';
-  const abiPath = './abis/busd.json';
-  // Load ABI from JSON file
-  const abiRaw = fs_.readFileSync(path.resolve(__dirname, abiPath), 'utf8');
-  const tokenABI = JSON.parse(abiRaw);
-  const tokenContract = new web3.eth.Contract(tokenABI, tokenContractAddress);
-  const balanceInWei = await tokenContract.methods.balanceOf(contractAddress).call();
-  const balanceInEther = web3.utils.fromWei(balanceInWei, 'ether');
-  const balanceInUSD = balanceInEther * 1;
-  console.log('BUSD');
-  return balanceInUSD;
+async function getTokenBalance(contractAddress, tokenContractAddress, abiPath, exchangeRate) {
+  try {
+    // Load ABI from JSON file
+    const abiRaw = fs_.readFileSync(path.resolve(__dirname, abiPath), 'utf8');
+    const tokenABI = JSON.parse(abiRaw);
+  
+    const tokenContract = new web3.eth.Contract(tokenABI, tokenContractAddress);
+    const balanceInWei = await tokenContract.methods.balanceOf(contractAddress).call();
+    const balanceInEther = web3.utils.fromWei(balanceInWei, 'ether');
+    const balanceInUSD = balanceInEther * exchangeRate;
+  
+    console.log(`Balance for contract at ${contractAddress}: ${balanceInUSD} USD`);
+    return balanceInUSD;
+  } catch (error) {
+    console.error(`Error getting balance for contract at ${contractAddress}:`, error);
+    return null;
+  }
 }
+
 
 async function getContractSourceCode(contractAddress) {
   try {
