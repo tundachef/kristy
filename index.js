@@ -3,11 +3,13 @@ const axios = require('axios');
 const fs = require('fs/promises');
 const { exec } = require('child_process');
 const AfricasTalking = require('africastalking');
+require('dotenv').config();
+
 
 // Set your app credentials
 const credentials = {
-  apiKey: 'YourAPIKey',
-  username: 'YourUsername',
+  apiKey: process.env.AfricasTalkingApiKey,
+  username: process.env.AfricasTalkingUsername,
 };
 
 // Initialize the SDK
@@ -17,9 +19,9 @@ const AfricasTalkingSDK = AfricasTalking(credentials);
 const sms = AfricasTalkingSDK.SMS;
 
 // Constants and Configuration
-const BSC_NODE_URL = 'http://127.0.0.1:7545';
+const BSC_NODE_URL = process.env.NodeUrl;
 const MIN_BALANCE_THRESHOLD_USD = 10;
-const API_KEY = 'YourApiKeyToken';
+const API_KEY = process.env.ApiKey;
 
 // Token information (exchange rate to USD)
 const tokens = [
@@ -106,9 +108,9 @@ async function analyzeAndSaveIssues(contractAddress, sourceCode) {
 
 function sendSms(message) {
   const options = {
-    to: ['+254711XXXYYY', '+254733YYYZZZ'], // Replace with your phone numbers
+    to: [process.env.PHONE_NUMBER], // Replace with your phone numbers
     message,
-    from: 'XXYYZZ', // Replace with your shortCode or senderId
+    // from: 'XXYYZZ', // Replace with your shortCode or senderId (optional)
   };
 
   sms.send(options)
@@ -116,6 +118,7 @@ function sendSms(message) {
     .catch(console.log);
 }
 
+//testing all funcs
 async function processBlocks() {
   try {
     const latestBlockNumber = await web3.eth.getBlockNumber();
@@ -123,15 +126,19 @@ async function processBlocks() {
 
     let addressesArray = [];
 
-    for (let blockNumber = 0; blockNumber <= latestBlockNumber; blockNumber++) {
+    for (let blockNumber = latestBlockNumber; blockNumber >= 0; blockNumber--) {
       const block = await web3.eth.getBlock(blockNumber, true);
+      console.log(`block checks: ${blockNumber}`);
 
       if (block && block.transactions) {
         const blockBalances = [];
 
         for (const tx of block.transactions) {
+          // console.log(`Tx: ${tx.to}`);
           if (!tx.to) {
-            const contractAddress = tx.creates;
+            console.log('Transaction Object: ');
+            const contractAddress = (await web3.eth.getTransactionReceipt(tx.hash)).contractAddress;
+            console.log(`Contract Address: ${contractAddress}`);
             const contractBalances = await getContractBalances(contractAddress);
 
             if (contractBalances) {
