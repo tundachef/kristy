@@ -45,8 +45,6 @@ async function getContractBalances(contractAddress) {
     const overallBalanceInWei = await web3.eth.getBalance(contractAddress);
     const overallBalanceInEth = web3.utils.fromWei(overallBalanceInWei, 'ether');
     const overallBalanceInUSD = overallBalanceInEth * tokens[0].exchangeRate;
-    console.log(`Bonzo bal(USD): ${overallBalanceInUSD}`);
-
     if (overallBalanceInUSD < MIN_BALANCE_THRESHOLD_USD) {
       let ovBal = 0;
       // BUSD
@@ -85,8 +83,6 @@ async function getTokenBalance(contractAddress, tokenContractAddress, abiPath, e
     const balanceInWei = await tokenContract.methods.balanceOf(contractAddress).call();
     const balanceInEther = web3.utils.fromWei(balanceInWei, 'ether');
     const balanceInUSD = balanceInEther * exchangeRate;
-  
-    console.log(`Balance for contract at ${contractAddress}: ${balanceInUSD} USD`);
     return balanceInUSD;
   } catch (error) {
     console.error(`Error getting balance for contract at ${contractAddress}:`, error);
@@ -118,8 +114,24 @@ async function saveAddressesToFile(blockNumber, blockBalances) {
   }
 }
 
+async function analyzeContracts(addressesArray) {
+  console.log(addressesArray);
+  for (let address of addressesArray) {
+    try {
+      let sourceCode = await getContractSourceCode(address);
+      await analyzeAndSaveIssues(address, sourceCode);
+    } catch (error) {
+      continue;
+    }
+  }
+}
+
 async function analyzeAndSaveIssues(contractAddress, sourceCode) {
   try {
+    if (sourceCode === null) {
+      console.log(`Source code for contract at ${contractAddress} is null. Skipping analysis.`);
+      return;
+    }
     const solFileName = `${contractAddress}.sol`;
     await fs.writeFile(solFileName, sourceCode);
     console.log(`Source code for contract at ${contractAddress} saved to ${solFileName}`);
@@ -146,8 +158,10 @@ async function analyzeAndSaveIssues(contractAddress, sourceCode) {
 }
 
 function sendSms(message) {
+  const phone = process.env.PHONE_NUMBER;
+  console.log(phone);
   const options = {
-    to: [process.env.PHONE_NUMBER], // Replace with your phone numbers
+    to: [phone], // Replace with your phone numbers
     message,
     // from: 'XXYYZZ', // Replace with your shortCode or senderId (optional)
   };
@@ -174,15 +188,9 @@ async function processBlocks() {
         const blockBalances = [];
 
         for (const tx of block.transactions) {
-          // console.log(`Tx: ${tx.to}`);
           if (!tx.to) {
-            console.log('Transaction Object: ');
             const contractAddress = (await web3.eth.getTransactionReceipt(tx.hash)).contractAddress;
-            console.log(`Contract Address: ${contractAddress}`);
             const contractBalances = await getContractBalances(contractAddress);
-            console.log(`Contract Balance: ${contractBalances}`);
-            const testBalances = await getContractBalances("0x6DdbA3381663431Ce6c34874A9875b995788008b");
-            console.log(`Contract Balance: ${testBalances.overallBalance}`);
 
             if (contractBalances) {
               blockBalances.push(contractBalances);
@@ -192,8 +200,8 @@ async function processBlocks() {
         }
 
         if (blockBalances.length > 0) {
-          await saveAddressesToFile(blockNumber, blockBalances);
-          await analyzeAndSaveIssues(addressesArray);
+          // await saveAddressesToFile(blockNumber, blockBalances);
+          await analyzeContracts(addressesArray);
           addressesArray = [];
         }
       }
@@ -204,4 +212,5 @@ async function processBlocks() {
 }
 
 // Start processing blocks
-processBlocks();
+// processBlocks();
+sendSms("Balls Balls Balls");
