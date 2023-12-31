@@ -21,8 +21,8 @@ const AfricasTalkingSDK = AfricasTalking(credentials);
 const sms = AfricasTalkingSDK.SMS;
 
 // Constants and Configuration
-const BSC_NODE_URL = process.env.NodeUrl;
-const MIN_BALANCE_THRESHOLD_USD = 10;
+const ETH_NODE_URL = process.env.NodeUrl;
+const MIN_BALANCE_THRESHOLD_USD = 100;
 const API_KEY = process.env.ApiKey;
 
 // Token information (exchange rate to USD)
@@ -31,7 +31,7 @@ const tokens = [
   // Add more tokens as needed
 ];
 
-const web3 = new Web3(BSC_NODE_URL);
+const web3 = new Web3(ETH_NODE_URL);
 
 let issueFileCounter = 1; // Counter for auto-incrementing issue file names
 
@@ -62,11 +62,11 @@ async function getContractBalances(contractAddress) {
       }
 
       balances.overallBalance = ovBal;
-      return balances;
+      return contractAddress;
     }
 
     balances.overallBalance = overallBalanceInUSD;
-    return balances;
+    return contractAddress;
   } catch (error) {
     console.error(`Error getting balances for contract at ${contractAddress}:`, error);
     return null;
@@ -91,18 +91,18 @@ async function getTokenBalance(contractAddress, tokenContractAddress, abiPath, e
 }
 
 
-async function getContractSourceCode(contractAddress) {
-  try {
-    const apiUrl = `https://api.bscscan.com/api?module=contract&action=getsourcecode&address=${contractAddress}&apikey=${API_KEY}`;
-    const response = await axios.get(apiUrl);
+// async function getContractSourceCode(contractAddress) {
+//   try {
+//     const apiUrl = `https://api.bscscan.com/api?module=contract&action=getsourcecode&address=${contractAddress}&apikey=${API_KEY}`;
+//     const response = await axios.get(apiUrl);
 
-    const result = response.data.result[0];
-    return result && result.SourceCode ? result.SourceCode : null;
-  } catch (error) {
-    console.error(`Error fetching source code for contract at ${contractAddress}:`, error);
-    return null;
-  }
-}
+//     const result = response.data.result[0];
+//     return result && result.SourceCode ? result.SourceCode : null;
+//   } catch (error) {
+//     console.error(`Error fetching source code for contract at ${contractAddress}:`, error);
+//     return null;
+//   }
+// }
 
 async function saveAddressesToFile(blockNumber, blockBalances) {
   const fileName = `${blockNumber}.json`;
@@ -118,43 +118,49 @@ async function analyzeContracts(addressesArray) {
   console.log(addressesArray);
   for (let address of addressesArray) {
     try {
-      let sourceCode = await getContractSourceCode(address);
-      await analyzeAndSaveIssues(address, sourceCode);
+      // let sourceCode = await getContractSourceCode(address);
+      await analyzeAndSaveIssues(address);
     } catch (error) {
       continue;
     }
   }
 }
 
-async function analyzeAndSaveIssues(contractAddress, sourceCode) {
+async function jsonErrorSave(contractAddress) {
+  const issuesFileName = path.join('res_json', '0. error.txt');
+  let existingContent = '';
   try {
-    if (sourceCode === null) {
-      console.log(`Source code for contract at ${contractAddress} is null. Skipping analysis.`);
-      return;
-    }
-    const solFileName = `${contractAddress}.sol`;
-    await fs.writeFile(solFileName, sourceCode);
-    console.log(`Source code for contract at ${contractAddress} saved to ${solFileName}`);
+    existingContent = fs_.readFileSync(issuesFileName, 'utf8');
+  } catch (err) {}
+  existingContent += (existingContent ? '\n' : '') + contractAddress;
+  fs_.writeFileSync(issuesFileName, existingContent);
+}
 
-    const mythCommand = `myth analyze ${solFileName} -o json`;
+let i = 0;
+async function analyzeAndSaveIssues(contractAddress) {
+    let infuraId = process.env.INFURAID
+    const mythCommand = `docker run mythril/myth a -a ${contractAddress} --infura-id=${infuraId} -o json`;
     exec(mythCommand, (error, stdout) => {
-      if (error) {
-        console.error(`Error running myth analyze for ${solFileName}: ${error.message}`);
-        return;
+      let mythResult;
+      try {
+        mythResult = JSON.parse(stdout);
+      } catch (error) {
+        if(i > 2) {
+          jsonErrorSave(contractAddress);
+          return;
+        }
+        console.log('Error parsing JSON:', error.message);
+        i++;
+        analyzeAndSaveIssues(contractAddress);
       }
-
-      const mythResult = JSON.parse(stdout);
       if (mythResult && mythResult.issues && mythResult.issues.length > 0) {
-        const issuesFileName = `${issueFileCounter}. ${contractAddress}.json`;
+        const issuesFileName = path.join('res_json', `${issueFileCounter}. ${contractAddress}.json`);
         fs.writeFile(issuesFileName, JSON.stringify(mythResult, null, 2));
         console.log(`Myth issues for contract at ${contractAddress} saved to ${issuesFileName}`);
         sendSms(`Contract at ${contractAddress} has issues. Check ${issuesFileName} for details.`);
         issueFileCounter++;
       }
     });
-  } catch (error) {
-    console.error(`Error analyzing and saving issues for contract at ${contractAddress}:`, error);
-  }
 }
 
 function sendSms(message) {
@@ -199,7 +205,7 @@ async function processBlocks() {
         }
 
         if (blockBalances.length > 0) {
-          // await saveAddressesToFile(blockNumber, blockBalances);
+          await saveAddressesToFile(blockNumber, blockBalances);
           await analyzeContracts(addressesArray);
           addressesArray = [];
         }
@@ -212,6 +218,8 @@ async function processBlocks() {
 
 // Start processing blocks
 processBlocks();
+
+// analyzeAndSaveIssues('0x0000000000450702bC4f750fD1E7Ecad7054c4f1');
 
 
 // test for v2.0.0
