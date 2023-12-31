@@ -1,0 +1,608 @@
+
+
+Latest Block Number: 18904935
+block checks: 18904935
+block checks: 18904934
+block checks: 18904933
+block checks: 18904932
+block checks: 18904931
+block checks: 18904930
+block checks: 18904929
+block checks: 18904928
+block checks: 18904927
+block checks: 18904926
+block checks: 18904925
+block checks: 18904924
+block checks: 18904923
+block checks: 18904922
+block checks: 18904921
+block checks: 18904920
+block checks: 18904919
+block checks: 18904918
+block checks: 18904917
+block checks: 18904916
+block checks: 18904915
+block checks: 18904914
+block checks: 18904913
+block checks: 18904912
+block checks: 18904911
+block checks: 18904910
+block checks: 18904909
+block checks: 18904908
+block checks: 18904907
+block checks: 18904906
+block checks: 18904905
+block checks: 18904904
+block checks: 18904903
+block checks: 18904902
+block checks: 18904901
+block checks: 18904900
+block checks: 18904899
+block checks: 18904898
+block checks: 18904897
+block checks: 18904896
+block checks: 18904895
+block checks: 18904894
+block checks: 18904893
+block checks: 18904892
+block checks: 18904891
+block checks: 18904890
+0xfaf29f632d24c018fbb043ea21f1d6c28657108a
+Error getting balance for contract at 0xfaf29f632d24c018fbb043ea21f1d6c28657108a: TypeError: tokenContract.methods.balanceOf is not a function
+    at getTokenBalance (C:\Users\sentl\Desktop\zionx\index.js:88:54)
+    at getContractBalances (C:\Users\sentl\Desktop\zionx\index.js:55:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processBlocks (C:\Users\sentl\Desktop\zionx\index.js:204:38)
+block checks: 18904889
+block checks: 18904888
+block checks: 18904887
+0x459636aa41b87eb8f69fb8f91713f3a22eafc462
+Error getting balance for contract at 0x459636aa41b87eb8f69fb8f91713f3a22eafc462: TypeError: tokenContract.methods.balanceOf is not a function
+    at getTokenBalance (C:\Users\sentl\Desktop\zionx\index.js:88:54)
+    at getContractBalances (C:\Users\sentl\Desktop\zionx\index.js:55:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processBlocks (C:\Users\sentl\Desktop\zionx\index.js:204:38)
+block checks: 18904886
+block checks: 18904885
+block checks: 18904884
+block checks: 18904883
+block checks: 18904882
+0x735bcca2af1943466871b2cdf8bd609c57f0d7a5
+Error getting balance for contract at 0x735bcca2af1943466871b2cdf8bd609c57f0d7a5: TypeError: tokenContract.methods.balanceOf is not a function
+    at getTokenBalance (C:\Users\sentl\Desktop\zionx\index.js:88:54)
+    at getContractBalances (C:\Users\sentl\Desktop\zionx\index.js:55:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processBlocks (C:\Users\sentl\Desktop\zionx\index.js:204:38)
+block checks: 18904881
+block checks: 18904880
+block checks: 18904879
+block checks: 18904878
+block checks: 18904877
+block checks: 18904876
+block checks: 18904875
+block checks: 18904874
+block checks: 18904873
+0x778a024e2c36dd14451d589c05bf39578c22945f
+Error getting balance for contract at 0x778a024e2c36dd14451d589c05bf39578c22945f: TypeError: tokenContract.methods.balanceOf is not a function
+    at getTokenBalance (C:\Users\sentl\Desktop\zionx\index.js:88:54)
+    at getContractBalances (C:\Users\sentl\Desktop\zionx\index.js:55:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processBlocks (C:\Users\sentl\Desktop\zionx\index.js:204:38)
+block checks: 18904872
+block checks: 18904871
+block checks: 18904870
+block checks: 18904869
+block checks: 18904868
+block checks: 18904867
+block checks: 18904866
+block checks: 18904865
+block checks: 18904864
+block checks: 18904863
+block checks: 18904862
+block checks: 18904861
+block checks: 18904860
+0x0d70e6c3529b1529caef34a42c7dcef7f19bca6a
+Error getting balance for contract at 0x0d70e6c3529b1529caef34a42c7dcef7f19bca6a: TypeError: tokenContract.methods.balanceOf is not a function
+    at getTokenBalance (C:\Users\sentl\Desktop\zionx\index.js:88:54)
+    at getContractBalances (C:\Users\sentl\Desktop\zionx\index.js:55:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processBlocks (C:\Users\sentl\Desktop\zionx\index.js:204:38)
+0x683c496dbc74c578c9b52a87554c40eae34329a0
+Error getting balance for contract at 0x683c496dbc74c578c9b52a87554c40eae34329a0: TypeError: tokenContract.methods.balanceOf is not a function
+    at getTokenBalance (C:\Users\sentl\Desktop\zionx\index.js:88:54)
+    at getContractBalances (C:\Users\sentl\Desktop\zionx\index.js:55:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processBlocks (C:\Users\sentl\Desktop\zionx\index.js:204:38)
+block checks: 18904859
+block checks: 18904858
+block checks: 18904857
+block checks: 18904856
+block checks: 18904855
+block checks: 18904854
+block checks: 18904853
+block checks: 18904852
+0xb4ffa49fbefccdfe5075ebe4ff44560012f2ba27
+Error getting balance for contract at 0xb4ffa49fbefccdfe5075ebe4ff44560012f2ba27: TypeError: tokenContract.methods.balanceOf is not a function
+    at getTokenBalance (C:\Users\sentl\Desktop\zionx\index.js:88:54)
+    at getContractBalances (C:\Users\sentl\Desktop\zionx\index.js:55:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processBlocks (C:\Users\sentl\Desktop\zionx\index.js:204:38)
+block checks: 18904851
+block checks: 18904850
+block checks: 18904849
+block checks: 18904848
+block checks: 18904847
+block checks: 18904846
+block checks: 18904845
+block checks: 18904844
+block checks: 18904843
+block checks: 18904842
+block checks: 18904841
+block checks: 18904840
+block checks: 18904839
+block checks: 18904838
+block checks: 18904837
+block checks: 18904836
+block checks: 18904835
+block checks: 18904834
+block checks: 18904833
+block checks: 18904832
+block checks: 18904831
+block checks: 18904830
+block checks: 18904829
+block checks: 18904828
+block checks: 18904827
+block checks: 18904826
+block checks: 18904825
+block checks: 18904824
+block checks: 18904823
+block checks: 18904822
+block checks: 18904821
+block checks: 18904820
+0xf10a41bcd0cc9d08a0d4f87ac46caf1f8ef3cb85
+Error getting balance for contract at 0xf10a41bcd0cc9d08a0d4f87ac46caf1f8ef3cb85: TypeError: tokenContract.methods.balanceOf is not a function
+    at getTokenBalance (C:\Users\sentl\Desktop\zionx\index.js:88:54)
+    at getContractBalances (C:\Users\sentl\Desktop\zionx\index.js:55:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processBlocks (C:\Users\sentl\Desktop\zionx\index.js:204:38)
+block checks: 18904819
+block checks: 18904818
+0x06f955a0fcb79c23f935f22f299e69efa68cdfdf
+Error getting balance for contract at 0x06f955a0fcb79c23f935f22f299e69efa68cdfdf: TypeError: tokenContract.methods.balanceOf is not a function
+    at getTokenBalance (C:\Users\sentl\Desktop\zionx\index.js:88:54)
+    at getContractBalances (C:\Users\sentl\Desktop\zionx\index.js:55:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processBlocks (C:\Users\sentl\Desktop\zionx\index.js:204:38)
+block checks: 18904817
+block checks: 18904816
+block checks: 18904815
+block checks: 18904814
+block checks: 18904813
+block checks: 18904812
+block checks: 18904811
+block checks: 18904810
+block checks: 18904809
+block checks: 18904808
+block checks: 18904807
+block checks: 18904806
+block checks: 18904805
+block checks: 18904804
+block checks: 18904803
+block checks: 18904802
+block checks: 18904801
+block checks: 18904800
+block checks: 18904799
+0x4ff4e9aa82831bb8fa411dcb39491b805e46c0e3
+Error getting balance for contract at 0x4ff4e9aa82831bb8fa411dcb39491b805e46c0e3: TypeError: tokenContract.methods.balanceOf is not a function
+    at getTokenBalance (C:\Users\sentl\Desktop\zionx\index.js:88:54)
+    at getContractBalances (C:\Users\sentl\Desktop\zionx\index.js:55:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processBlocks (C:\Users\sentl\Desktop\zionx\index.js:204:38)
+block checks: 18904798
+block checks: 18904797
+block checks: 18904796
+block checks: 18904795
+block checks: 18904794
+block checks: 18904793
+block checks: 18904792
+0x1402d55ad70f170deae7047288040e3276cba75a
+Error getting balance for contract at 0x1402d55ad70f170deae7047288040e3276cba75a: TypeError: tokenContract.methods.balanceOf is not a function
+    at getTokenBalance (C:\Users\sentl\Desktop\zionx\index.js:88:54)
+    at getContractBalances (C:\Users\sentl\Desktop\zionx\index.js:55:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processBlocks (C:\Users\sentl\Desktop\zionx\index.js:204:38)
+0x5e8e5de3e6a6296d4eeb7b350f5c427791ad2f60
+Error getting balance for contract at 0x5e8e5de3e6a6296d4eeb7b350f5c427791ad2f60: TypeError: tokenContract.methods.balanceOf is not a function
+    at getTokenBalance (C:\Users\sentl\Desktop\zionx\index.js:88:54)
+    at getContractBalances (C:\Users\sentl\Desktop\zionx\index.js:55:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processBlocks (C:\Users\sentl\Desktop\zionx\index.js:204:38)
+block checks: 18904791
+block checks: 18904790
+block checks: 18904789
+block checks: 18904788
+block checks: 18904787
+block checks: 18904786
+block checks: 18904785
+block checks: 18904784
+block checks: 18904783
+block checks: 18904782
+block checks: 18904781
+block checks: 18904780
+block checks: 18904779
+block checks: 18904778
+block checks: 18904777
+0xc2549a0319c929c4fc741ea9e1c9c43e0e687aa5
+Error getting balance for contract at 0xc2549a0319c929c4fc741ea9e1c9c43e0e687aa5: TypeError: tokenContract.methods.balanceOf is not a function
+    at getTokenBalance (C:\Users\sentl\Desktop\zionx\index.js:88:54)
+    at getContractBalances (C:\Users\sentl\Desktop\zionx\index.js:55:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processBlocks (C:\Users\sentl\Desktop\zionx\index.js:204:38)
+block checks: 18904776
+block checks: 18904775
+block checks: 18904774
+0x8d475f86a2c6fa1fcb460e2b80ba36abc74b01d7
+Error getting balance for contract at 0x8d475f86a2c6fa1fcb460e2b80ba36abc74b01d7: TypeError: tokenContract.methods.balanceOf is not a function
+    at getTokenBalance (C:\Users\sentl\Desktop\zionx\index.js:88:54)
+    at getContractBalances (C:\Users\sentl\Desktop\zionx\index.js:55:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processBlocks (C:\Users\sentl\Desktop\zionx\index.js:204:38)
+block checks: 18904773
+block checks: 18904772
+block checks: 18904771
+block checks: 18904770
+block checks: 18904769
+block checks: 18904768
+block checks: 18904767
+block checks: 18904766
+block checks: 18904765
+block checks: 18904764
+block checks: 18904763
+block checks: 18904762
+block checks: 18904761
+block checks: 18904760
+block checks: 18904759
+block checks: 18904758
+block checks: 18904757
+block checks: 18904756
+block checks: 18904755
+block checks: 18904754
+block checks: 18904753
+block checks: 18904752
+block checks: 18904751
+block checks: 18904750
+block checks: 18904749
+0xda8b0354c46f3878c666b3242b40830b4005ce4b
+Error getting balance for contract at 0xda8b0354c46f3878c666b3242b40830b4005ce4b: TypeError: tokenContract.methods.balanceOf is not a function
+    at getTokenBalance (C:\Users\sentl\Desktop\zionx\index.js:88:54)
+    at getContractBalances (C:\Users\sentl\Desktop\zionx\index.js:55:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processBlocks (C:\Users\sentl\Desktop\zionx\index.js:204:38)
+block checks: 18904748
+block checks: 18904747
+block checks: 18904746
+block checks: 18904745
+block checks: 18904744
+block checks: 18904743
+block checks: 18904742
+block checks: 18904741
+block checks: 18904740
+block checks: 18904739
+block checks: 18904738
+block checks: 18904737
+block checks: 18904736
+block checks: 18904735
+block checks: 18904734
+block checks: 18904733
+block checks: 18904732
+block checks: 18904731
+block checks: 18904730
+block checks: 18904729
+block checks: 18904728
+block checks: 18904727
+block checks: 18904726
+block checks: 18904725
+block checks: 18904724
+block checks: 18904723
+block checks: 18904722
+block checks: 18904721
+block checks: 18904720
+0xc1e9a8fb42d964477b4bde499928d7728f887d35
+Error getting balance for contract at 0xc1e9a8fb42d964477b4bde499928d7728f887d35: TypeError: tokenContract.methods.balanceOf is not a function
+    at getTokenBalance (C:\Users\sentl\Desktop\zionx\index.js:88:54)
+    at getContractBalances (C:\Users\sentl\Desktop\zionx\index.js:55:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processBlocks (C:\Users\sentl\Desktop\zionx\index.js:204:38)
+block checks: 18904719
+block checks: 18904718
+block checks: 18904717
+block checks: 18904716
+block checks: 18904715
+0xb17f042309636f1adcc9f5857b781880e7afd87d
+Error getting balance for contract at 0xb17f042309636f1adcc9f5857b781880e7afd87d: TypeError: tokenContract.methods.balanceOf is not a function
+    at getTokenBalance (C:\Users\sentl\Desktop\zionx\index.js:88:54)
+    at getContractBalances (C:\Users\sentl\Desktop\zionx\index.js:55:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processBlocks (C:\Users\sentl\Desktop\zionx\index.js:204:38)
+block checks: 18904714
+block checks: 18904713
+block checks: 18904712
+block checks: 18904711
+block checks: 18904710
+0x7293bcd4b665ccbab0671f21f1074a30b537d930
+Error getting balance for contract at 0x7293bcd4b665ccbab0671f21f1074a30b537d930: TypeError: tokenContract.methods.balanceOf is not a function
+    at getTokenBalance (C:\Users\sentl\Desktop\zionx\index.js:88:54)
+    at getContractBalances (C:\Users\sentl\Desktop\zionx\index.js:55:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processBlocks (C:\Users\sentl\Desktop\zionx\index.js:204:38)
+0x5c09481a57a9d0f342acf8c80837dfe92fecf67a
+Error getting balance for contract at 0x5c09481a57a9d0f342acf8c80837dfe92fecf67a: TypeError: tokenContract.methods.balanceOf is not a function
+    at getTokenBalance (C:\Users\sentl\Desktop\zionx\index.js:88:54)
+    at getContractBalances (C:\Users\sentl\Desktop\zionx\index.js:55:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processBlocks (C:\Users\sentl\Desktop\zionx\index.js:204:38)
+block checks: 18904709
+block checks: 18904708
+block checks: 18904707
+block checks: 18904706
+block checks: 18904705
+block checks: 18904704
+block checks: 18904703
+block checks: 18904702
+0x4475d71894a51b06f0d95be127ba7db0b282eba5
+Error getting balance for contract at 0x4475d71894a51b06f0d95be127ba7db0b282eba5: TypeError: tokenContract.methods.balanceOf is not a function
+    at getTokenBalance (C:\Users\sentl\Desktop\zionx\index.js:88:54)
+    at getContractBalances (C:\Users\sentl\Desktop\zionx\index.js:55:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processBlocks (C:\Users\sentl\Desktop\zionx\index.js:204:38)
+block checks: 18904701
+block checks: 18904700
+block checks: 18904699
+block checks: 18904698
+block checks: 18904697
+block checks: 18904696
+block checks: 18904695
+block checks: 18904694
+block checks: 18904693
+block checks: 18904692
+block checks: 18904691
+block checks: 18904690
+block checks: 18904689
+block checks: 18904688
+block checks: 18904687
+block checks: 18904686
+0xf8929bccce3007f1b45b983509e890b299dcc4c3
+Error getting balance for contract at 0xf8929bccce3007f1b45b983509e890b299dcc4c3: TypeError: tokenContract.methods.balanceOf is not a function
+    at getTokenBalance (C:\Users\sentl\Desktop\zionx\index.js:88:54)
+    at getContractBalances (C:\Users\sentl\Desktop\zionx\index.js:55:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processBlocks (C:\Users\sentl\Desktop\zionx\index.js:204:38)
+block checks: 18904685
+block checks: 18904684
+block checks: 18904683
+block checks: 18904682
+block checks: 18904681
+block checks: 18904680
+block checks: 18904679
+block checks: 18904678
+block checks: 18904677
+block checks: 18904676
+block checks: 18904675
+block checks: 18904674
+block checks: 18904673
+block checks: 18904672
+block checks: 18904671
+block checks: 18904670
+block checks: 18904669
+0x37d6d847db5bab0f670b8065f66ca63c643a4d8d
+Error getting balance for contract at 0x37d6d847db5bab0f670b8065f66ca63c643a4d8d: TypeError: tokenContract.methods.balanceOf is not a function
+    at getTokenBalance (C:\Users\sentl\Desktop\zionx\index.js:88:54)
+    at getContractBalances (C:\Users\sentl\Desktop\zionx\index.js:55:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processBlocks (C:\Users\sentl\Desktop\zionx\index.js:204:38)
+block checks: 18904668
+block checks: 18904667
+block checks: 18904666
+block checks: 18904665
+block checks: 18904664
+block checks: 18904663
+block checks: 18904662
+block checks: 18904661
+block checks: 18904660
+block checks: 18904659
+block checks: 18904658
+block checks: 18904657
+block checks: 18904656
+block checks: 18904655
+block checks: 18904654
+block checks: 18904653
+block checks: 18904652
+block checks: 18904651
+block checks: 18904650
+block checks: 18904649
+block checks: 18904648
+block checks: 18904647
+block checks: 18904646
+block checks: 18904645
+block checks: 18904644
+block checks: 18904643
+block checks: 18904642
+block checks: 18904641
+block checks: 18904640
+block checks: 18904639
+block checks: 18904638
+block checks: 18904637
+block checks: 18904636
+block checks: 18904635
+block checks: 18904634
+block checks: 18904633
+block checks: 18904632
+block checks: 18904631
+block checks: 18904630
+0x6bbab49f87bc630fbc1712f8fca23f23378b4439
+Error getting balance for contract at 0x6bbab49f87bc630fbc1712f8fca23f23378b4439: TypeError: tokenContract.methods.balanceOf is not a function
+    at getTokenBalance (C:\Users\sentl\Desktop\zionx\index.js:88:54)
+    at getContractBalances (C:\Users\sentl\Desktop\zionx\index.js:55:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processBlocks (C:\Users\sentl\Desktop\zionx\index.js:204:38)
+block checks: 18904629
+block checks: 18904628
+0x40e99b80c862e946a6416c96143601cc3a4770f4
+Error getting balance for contract at 0x40e99b80c862e946a6416c96143601cc3a4770f4: TypeError: tokenContract.methods.balanceOf is not a function
+    at getTokenBalance (C:\Users\sentl\Desktop\zionx\index.js:88:54)
+    at getContractBalances (C:\Users\sentl\Desktop\zionx\index.js:55:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processBlocks (C:\Users\sentl\Desktop\zionx\index.js:204:38)
+block checks: 18904627
+block checks: 18904626
+block checks: 18904625
+block checks: 18904624
+block checks: 18904623
+block checks: 18904622
+block checks: 18904621
+block checks: 18904620
+block checks: 18904619
+block checks: 18904618
+block checks: 18904617
+block checks: 18904616
+block checks: 18904615
+block checks: 18904614
+block checks: 18904613
+block checks: 18904612
+block checks: 18904611
+block checks: 18904610
+block checks: 18904609
+block checks: 18904608
+block checks: 18904607
+block checks: 18904606
+0x236c21517f86d325333622cff911a4c4e3382f82
+Error getting balance for contract at 0x236c21517f86d325333622cff911a4c4e3382f82: TypeError: tokenContract.methods.balanceOf is not a function
+    at getTokenBalance (C:\Users\sentl\Desktop\zionx\index.js:88:54)
+    at getContractBalances (C:\Users\sentl\Desktop\zionx\index.js:55:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processBlocks (C:\Users\sentl\Desktop\zionx\index.js:204:38)
+block checks: 18904605
+0xb9a13b276abe5182a33ab3c2a06181005c949d9b
+Error getting balance for contract at 0xb9a13b276abe5182a33ab3c2a06181005c949d9b: TypeError: tokenContract.methods.balanceOf is not a function
+    at getTokenBalance (C:\Users\sentl\Desktop\zionx\index.js:88:54)
+    at getContractBalances (C:\Users\sentl\Desktop\zionx\index.js:55:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processBlocks (C:\Users\sentl\Desktop\zionx\index.js:204:38)
+block checks: 18904604
+0xb1659808e344785a69dd46800be543ea6069233e
+Error getting balance for contract at 0xb1659808e344785a69dd46800be543ea6069233e: TypeError: tokenContract.methods.balanceOf is not a function
+    at getTokenBalance (C:\Users\sentl\Desktop\zionx\index.js:88:54)
+    at getContractBalances (C:\Users\sentl\Desktop\zionx\index.js:55:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processBlocks (C:\Users\sentl\Desktop\zionx\index.js:204:38)
+block checks: 18904603
+block checks: 18904602
+block checks: 18904601
+block checks: 18904600
+block checks: 18904599
+block checks: 18904598
+block checks: 18904597
+block checks: 18904596
+block checks: 18904595
+0xee48d755e77beeed2bed2b9cf1a5a629578cbc2d
+Error getting balance for contract at 0xee48d755e77beeed2bed2b9cf1a5a629578cbc2d: TypeError: tokenContract.methods.balanceOf is not a function
+    at getTokenBalance (C:\Users\sentl\Desktop\zionx\index.js:88:54)
+    at getContractBalances (C:\Users\sentl\Desktop\zionx\index.js:55:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processBlocks (C:\Users\sentl\Desktop\zionx\index.js:204:38)
+block checks: 18904594
+block checks: 18904593
+0xb9e4410a9fabf38b8ede19715eb7a5010d0deb56
+Error getting balance for contract at 0xb9e4410a9fabf38b8ede19715eb7a5010d0deb56: TypeError: tokenContract.methods.balanceOf is not a function
+    at getTokenBalance (C:\Users\sentl\Desktop\zionx\index.js:88:54)
+    at getContractBalances (C:\Users\sentl\Desktop\zionx\index.js:55:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processBlocks (C:\Users\sentl\Desktop\zionx\index.js:204:38)
+block checks: 18904592
+block checks: 18904591
+block checks: 18904590
+block checks: 18904589
+0x4e2d7bd3d062ead1569fc3c5e3c34de5d37b9082
+Error getting balance for contract at 0x4e2d7bd3d062ead1569fc3c5e3c34de5d37b9082: TypeError: tokenContract.methods.balanceOf is not a function
+    at getTokenBalance (C:\Users\sentl\Desktop\zionx\index.js:88:54)
+    at getContractBalances (C:\Users\sentl\Desktop\zionx\index.js:55:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processBlocks (C:\Users\sentl\Desktop\zionx\index.js:204:38)
+block checks: 18904588
+block checks: 18904587
+block checks: 18904586
+block checks: 18904585
+block checks: 18904584
+block checks: 18904583
+block checks: 18904582
+block checks: 18904581
+block checks: 18904580
+block checks: 18904579
+block checks: 18904578
+0xcddbeef6fb3ced0ceafaaaad0d11abab5c8abaec
+Error getting balance for contract at 0xcddbeef6fb3ced0ceafaaaad0d11abab5c8abaec: TypeError: tokenContract.methods.balanceOf is not a function
+    at getTokenBalance (C:\Users\sentl\Desktop\zionx\index.js:88:54)
+    at getContractBalances (C:\Users\sentl\Desktop\zionx\index.js:55:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processBlocks (C:\Users\sentl\Desktop\zionx\index.js:204:38)
+block checks: 18904577
+block checks: 18904576
+block checks: 18904575
+block checks: 18904574
+block checks: 18904573
+block checks: 18904572
+block checks: 18904571
+block checks: 18904570
+block checks: 18904569
+block checks: 18904568
+block checks: 18904567
+block checks: 18904566
+block checks: 18904565
+block checks: 18904564
+block checks: 18904563
+block checks: 18904562
+block checks: 18904561
+block checks: 18904560
+block checks: 18904559
+block checks: 18904558
+block checks: 18904557
+block checks: 18904556
+0x5a112e379b708c6ea9fff419b97d7bd89ce05dab
+Error getting balance for contract at 0x5a112e379b708c6ea9fff419b97d7bd89ce05dab: TypeError: tokenContract.methods.balanceOf is not a function
+    at getTokenBalance (C:\Users\sentl\Desktop\zionx\index.js:88:54)
+    at getContractBalances (C:\Users\sentl\Desktop\zionx\index.js:55:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processBlocks (C:\Users\sentl\Desktop\zionx\index.js:204:38)
+block checks: 18904555
+block checks: 18904554
+block checks: 18904553
+block checks: 18904552
+block checks: 18904551
+block checks: 18904550
+block checks: 18904549
+block checks: 18904548
+block checks: 18904547
+block checks: 18904546
+block checks: 18904545
+block checks: 18904544
+block checks: 18904543
+block checks: 18904542
+block checks: 18904541
+block checks: 18904540
+block checks: 18904539
+block checks: 18904538
+block checks: 18904537
+block checks: 18904536
+block checks: 18904535
+block checks: 18904534
+block checks: 18904533
+block checks: 18904532
+block checks: 18904531
+block checks: 18904530
+block checks: 18904529
+block checks: 18904528
+block checks: 18904527
+block checks: 18904526
+block checks: 18904525
+block checks: 18904524
+block checks: 18904523

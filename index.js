@@ -27,7 +27,7 @@ const API_KEY = process.env.ApiKey;
 
 // Token information (exchange rate to USD)
 const tokens = [
-  { exchangeRate: 270 }, // Replace with actual token exchange rates
+  { exchangeRate: 2301 }, // Replace with actual token exchange rates
   // Add more tokens as needed
 ];
 
@@ -47,16 +47,21 @@ async function getContractBalances(contractAddress) {
     const overallBalanceInUSD = overallBalanceInEth * tokens[0].exchangeRate;
     if (overallBalanceInUSD < MIN_BALANCE_THRESHOLD_USD) {
       let ovBal = 0;
-      // BUSD
-      ovBal = await getTokenBalance(contractAddress, '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56', './abis/busd.json', 1);
+      // USDT
+      console.log(contractAddress);
+      ovBal = await getTokenBalance(contractAddress, '0xdAC17F958D2ee523a2206206994597C13D831ec7', './abis/usdt.json', 1);
       if(ovBal < MIN_BALANCE_THRESHOLD_USD) {
-        // USDT
-        ovBal = await getTokenBalance(contractAddress, '0x55d398326f99059fF775485246999027B3197955', './abis/usdt.json', 1);
+        // USDC
+        ovBal = await getTokenBalance(contractAddress, '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', './abis/usdc.json', 1);
         if(ovBal < MIN_BALANCE_THRESHOLD_USD) {
-          // ETH
-          ovBal = await getTokenBalance(contractAddress, '0x2170Ed0880ac9A755fd29B2688956BD959F933F8', './abis/eth.json', 1);
+          // BNB
+          ovBal = await getTokenBalance(contractAddress, '0xB8c77482e45F1F44dE1745F52C74426C631bDD52', './abis/bnb.json', 1);
           if(ovBal < MIN_BALANCE_THRESHOLD_USD) {
-            return null;
+            // WETH
+            ovBal = await getTokenBalance(contractAddress, '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', './abis/weth.json', 1);
+            if(ovBal < MIN_BALANCE_THRESHOLD_USD) {
+              return null;
+            }
           }
         }
       }
@@ -140,6 +145,7 @@ let i = 0;
 async function analyzeAndSaveIssues(contractAddress) {
     let infuraId = process.env.INFURAID
     const mythCommand = `docker run mythril/myth a -a ${contractAddress} --infura-id=${infuraId} -o json`;
+    console.log(mythCommand)
     exec(mythCommand, (error, stdout) => {
       let mythResult;
       try {
@@ -179,8 +185,8 @@ function sendSms(message) {
 //testing all funcs
 async function processBlocks() {
   try {
-    const latestBlockNumber = await web3.eth.getBlockNumber();
-    // const latestBlockNumber = 20000000;
+    // const latestBlockNumber = await web3.eth.getBlockNumber();
+    const latestBlockNumber = 18904525;
     console.log(`Latest Block Number: ${latestBlockNumber}`);
 
     let addressesArray = [];
