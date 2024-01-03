@@ -111,7 +111,7 @@ async function analyzeContracts(addressesArray) {
 }
 
 async function jsonErrorSave(contractAddress, blockNumber) {
-  const issuesFileName = path.join('res_json', '0. error.txt');
+  const issuesFileName = path.join('res_json', '1. binance.txt');
   let existingContent = '';
   try {
     existingContent = fs_.readFileSync(issuesFileName, 'utf8');
@@ -122,8 +122,8 @@ async function jsonErrorSave(contractAddress, blockNumber) {
 
 let i = 0;
 async function analyzeAndSaveIssues(contractAddress) {
-    let infuraId = process.env.INFURAID
-    const mythCommand = `docker run mythril/myth a -a ${contractAddress} --infura-id=${infuraId} -o json`;
+    // let infuraId = process.env.INFURAID
+    const mythCommand = `docker run mythril/myth a -a ${contractAddress} --rpc=bsc-dataseed1.binance.org:443 --rpctls=True -o json`;
     console.log(mythCommand)
     exec(mythCommand, (error, stdout) => {
       let mythResult;
