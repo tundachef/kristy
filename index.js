@@ -46,28 +46,7 @@ async function getContractBalances(contractAddress) {
     const overallBalanceInEth = web3.utils.fromWei(overallBalanceInWei, 'ether');
     const overallBalanceInUSD = overallBalanceInEth * tokens[0].exchangeRate;
     if (overallBalanceInUSD < MIN_BALANCE_THRESHOLD_USD) {
-      let ovBal = 0;
-      // USDT
-      console.log(contractAddress);
-      ovBal = await getTokenBalance(contractAddress, '0xdAC17F958D2ee523a2206206994597C13D831ec7', './abis/usdt.json', 1);
-      if(ovBal < MIN_BALANCE_THRESHOLD_USD) {
-        // USDC
-        ovBal = await getTokenBalance(contractAddress, '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', './abis/usdc.json', 1);
-        if(ovBal < MIN_BALANCE_THRESHOLD_USD) {
-          // BNB
-          ovBal = await getTokenBalance(contractAddress, '0xB8c77482e45F1F44dE1745F52C74426C631bDD52', './abis/bnb.json', 1);
-          if(ovBal < MIN_BALANCE_THRESHOLD_USD) {
-            // WETH
-            ovBal = await getTokenBalance(contractAddress, '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', './abis/weth.json', 1);
-            if(ovBal < MIN_BALANCE_THRESHOLD_USD) {
-              return null;
-            }
-          }
-        }
-      }
-
-      balances.overallBalance = ovBal;
-      return contractAddress;
+      return null;
     }
 
     balances.overallBalance = overallBalanceInUSD;
@@ -131,13 +110,13 @@ async function analyzeContracts(addressesArray) {
   }
 }
 
-async function jsonErrorSave(contractAddress) {
+async function jsonErrorSave(contractAddress, blockNumber) {
   const issuesFileName = path.join('res_json', '0. error.txt');
   let existingContent = '';
   try {
     existingContent = fs_.readFileSync(issuesFileName, 'utf8');
   } catch (err) {}
-  existingContent += (existingContent ? '\n' : '') + contractAddress;
+  existingContent += (existingContent ? '\n' : '') + blockNumber + '=>' +contractAddress;
   fs_.writeFileSync(issuesFileName, existingContent);
 }
 
@@ -185,8 +164,11 @@ function sendSms(message) {
 //testing all funcs
 async function processBlocks() {
   try {
-    // const latestBlockNumber = await web3.eth.getBlockNumber();
-    const latestBlockNumber = 18904525;
+    const latestBlockNumber = await web3.eth.getBlockNumber();
+    // binance
+    // const latestBlockNumber =   18898649;
+    // ethereum
+    // const latestBlockNumber =   18898649;
     console.log(`Latest Block Number: ${latestBlockNumber}`);
 
     let addressesArray = [];
@@ -202,16 +184,22 @@ async function processBlocks() {
           if (!tx.to) {
             const contractAddress = (await web3.eth.getTransactionReceipt(tx.hash)).contractAddress;
             const contractBalances = await getContractBalances(contractAddress);
+            blockBalances.push(contractAddress);
 
             if (contractBalances) {
-              blockBalances.push(contractBalances);
+              // blockBalances.push(contractBalances);
               addressesArray.push(contractAddress);
             }
           }
         }
+        
+        if (addressesArray.length > 0) {
+          await saveAddressesToFile(blockNumber, addressesArray);
+        }
 
         if (blockBalances.length > 0) {
-          await saveAddressesToFile(blockNumber, blockBalances);
+          await jsonErrorSave(blockBalances, blockNumber);
+          // await saveAddressesToFile(blockNumber, blockBalances);
           await analyzeContracts(addressesArray);
           addressesArray = [];
         }
