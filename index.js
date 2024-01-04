@@ -27,7 +27,7 @@ const API_KEY = process.env.ApiKey;
 
 // Token information (exchange rate to USD)
 const tokens = [
-  { exchangeRate: 2301 }, // Replace with actual token exchange rates
+  { exchangeRate: 318 }, // Replace with actual token exchange rates
   // Add more tokens as needed
 ];
 
@@ -164,9 +164,11 @@ function sendSms(message) {
 //testing all funcs
 async function processBlocks() {
   try {
-    const latestBlockNumber = await web3.eth.getBlockNumber();
+    // const latestBlockNumber = await web3.eth.getBlockNumber();
     // binance
-    // const latestBlockNumber =   18898649;
+    // const latestBlockNumber =   34912086;
+    const latestBlockNumber =    20907946
+    // last = 20908255
     // ethereum
     // const latestBlockNumber =   18898649;
     console.log(`Latest Block Number: ${latestBlockNumber}`);
@@ -198,7 +200,7 @@ async function processBlocks() {
         }
 
         if (blockBalances.length > 0) {
-          await jsonErrorSave(blockBalances, blockNumber);
+          // await jsonErrorSave(blockBalances, blockNumber);
           // await saveAddressesToFile(blockNumber, blockBalances);
           await analyzeContracts(addressesArray);
           addressesArray = [];
